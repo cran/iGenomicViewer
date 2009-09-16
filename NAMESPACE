@@ -1,0 +1,20 @@
+export(mappingObjADF,
+       annotationObj,
+       makeAnnotation,
+       makeBandInfo,
+       convertCloc,
+       convertGloc,
+       iGGV,
+       iGGVtiled,
+       initGGV,
+       initTile,
+       makeGGV,
+       makeTiled,
+       makeTrack,
+       mappingObj,
+       mappingObjMarray,
+       mappingObjDF,
+       updateGGV,
+       writeExFiles)
+
+import(sendplot)
