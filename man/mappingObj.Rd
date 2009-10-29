@@ -32,8 +32,9 @@ mappingObj(file,
 mappingObjMarray(obj,
                  spot.ID=NA,
                  chrom,
-                 chrom.levels,
                  locBy,
+                 base.chrm=NA,
+                 reg.exp=NA,           
                  loc=NA,
                  loc.start=NA,
                  loc.stop=NA,
@@ -49,31 +50,33 @@ mappingObjMarray(obj,
                  saveName="MapObj.RData")
  
 mappingObjADF(adf,
-                   spot.ID=NA,
-                   chrom,
-                   chrom.levels,
-                   locBy,
-                   loc=NA,
-                   loc.start=NA,
-                   loc.stop=NA,
-                   additional=NA,
-                   names.additional=NA,
-                   links=NA,
-                   names.links=NA,
-                   images=NA,
-                   names.images=NA,
-                   band.info = NA,
-                   returnVl = TRUE,
-                   saveFile = FALSE,
-                   saveName="MapObj.RData")
+              spot.ID=NA,
+              chrom,
+              locBy,
+              base.chrm=NA,
+              reg.exp=NA,           
+              loc=NA,
+              loc.start=NA,
+              loc.stop=NA,
+              additional=NA,
+              names.additional=NA,
+              links=NA,
+              names.links=NA,
+              images=NA,
+              names.images=NA,
+              band.info = NA,
+              returnVl = TRUE,
+              saveFile = FALSE,
+              saveName="MapObj.RData")
 
 
 
 mappingObjDF(df,
              spot.ID=NA,
              chrom,
-             chrom.levels,
              locBy,
+             base.chrm=NA,
+             reg.exp=NA,           
              loc=NA,
              loc.start=NA,
              loc.stop=NA,
@@ -102,6 +105,10 @@ mappingObjDF(df,
   \item{chrom}{column in file or object that represents the chromosome location}
   \item{chrom.levels}{vector indicating how the chrom column is
     represented. i.e chr1, chrom1, 1, etc.}
+  \item{base.chrm}{vector of characters to be replaced in chromosome to
+  achieve numeric vector}
+  \item{reg.exp}{logical indication if base.chrm entry is exact match or
+  should be used in perl regular expression mapping}
   \item{loc}{column in file or object representing genomic location. See details for
     more information}
   \item{loc.start}{column in file or object representing starting genomic location. See details for

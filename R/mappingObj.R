@@ -82,7 +82,7 @@ mappingObj <- function(file,
         if(length(which(is.na(mm))) > 0) mm = mm[-which(is.na(mm))]
         if(length(mm) != 0) mapping.info = cbind(mapping.info, raw[,mm])
       }
-      if(class(additional) == "numeric"){
+      if(class(additional) == "numeric" | class(additional) == "integer"){
         mapping.info = cbind(mapping.info, raw[,additional])  
       }
       # optional way to change column header information
@@ -131,7 +131,7 @@ mappingObj <- function(file,
         if(length(which(is.na(mm))) > 0) mm = mm[-which(is.na(mm))]
         if(length(mm) != 0) x.link = as.data.frame(raw[,mm])
       }
-      if(class(links) == "numeric"){
+      if(class(links) == "numeric" | class(additional) == "integer"){
         mm = links
         x.link = as.data.frame(raw[,links])  
       }
@@ -171,7 +171,7 @@ mappingObj <- function(file,
         if(length(which(is.na(mm))) > 0) mm = mm[-which(is.na(mm))]
         if(length(mm) != 0) x.images = as.data.frame(raw[,mm])
       }
-      if(class(images) == "numeric"){
+      if(class(images) == "numeric" | class(additional) == "integer"){
         mm = images
         x.images = as.data.frame(raw[,images])  
       }

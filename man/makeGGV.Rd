@@ -13,6 +13,7 @@ makeGGV(GGV,
         goodDX=NA,
         smplDX=NA,
         smp.color=NA,
+        break.num=125,
         tileNum = 2, 
         buffer = 5,
         makeWinArms=TRUE, 
@@ -37,6 +38,8 @@ makeGGV(GGV,
     locations in the mapObj\$mapping.info object}
   \item{smplDX}{index or ordering for x axis}
   \item{smp.color}{colors for x axis}
+  \item{break.num}{numeric indicating break lengths to break up heatmap
+  for interactivity}
   \item{tileNum}{For tiled image heatmaps, the number of tracks to split
     spot.IDs}
   \item{buffer}{An additional number of spots to plot surrounding know

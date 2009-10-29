@@ -1,6 +1,6 @@
 Package: iGenomicViewer
-Version: 2.4.2
-Date: Sept 16, 2009
+Version: 2.4.4
+Date: Oct 29, 2009
 Title: Tool for sending interactive bioinformatic heatmaps with
         tool-tip content.
 Author: Daniel P Gaile <dpgaile@buffalo.edu>, Lori A. Shepherd
@@ -16,6 +16,6 @@ Description: A tool for visualizing data
 License: GPL (>= 2)
 URL:
         http://sphhp.buffalo.edu/biostat/research/software/igenomicviewer/index.php
-Packaged: Wed Sep 16 08:34:57 2009; las65
+Packaged: Thu Oct 29 11:25:03 2009; las65
 Repository: CRAN
-Date/Publication: 2009-09-18 20:25:05
+Date/Publication: 2009-10-29 17:25:07

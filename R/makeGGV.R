@@ -5,7 +5,7 @@ makeGGV <- function(GGV,
                     smplDX=NA,
                     smp.color=NA,
 
-                    
+                    break.num = 125,
                     tileNum = 2, 
                     buffer = 5,
                     
@@ -1175,17 +1175,17 @@ makeGGV <- function(GGV,
          
           
           # Breaks are 125 long
-          if(locInfo$nSpot[idx] > 125){
-            cuts = c(1,(1:ceiling(locInfo$nSpot[idx]/125)*125))
+          if(locInfo$nSpot[idx] > break.num){
+            cuts = c(1,(1:ceiling(locInfo$nSpot[idx]/break.num)*break.num))
             cuts[length(cuts)] = locInfo$nSpot[idx]
           }
-          if(locInfo$nSpot[idx] <= 125) cuts = c(1, locInfo$nSpot[idx])
+          if(locInfo$nSpot[idx] <= break.num) cuts = c(1, locInfo$nSpot[idx])
 
 
 
 
 
-          if(locInfo$nSpot[idx] > 125){
+          if(locInfo$nSpot[idx] > break.num){
 
             
             # find actual spot dx in mapObj
@@ -1199,7 +1199,7 @@ makeGGV <- function(GGV,
             g.cuts$endloc[dim(g.cuts)[1]] =  mapObj$mapping.info$g.loc.stop[locInfo$ending[idx]]
             g.cuts$centerloc = (g.cuts$startloc + g.cuts$endloc)/2
             
-            cuts2 = cuts[-(length(cuts))] + ceiling(125/2)
+            cuts2 = cuts[-(length(cuts))] + ceiling(break.num/2)
             cuts2[length(cuts2)] = locInfo$nSpot[idx]
 
             t.cuts2 = cuts2 + (locInfo$starting[idx] - 1)
@@ -1255,7 +1255,7 @@ makeGGV <- function(GGV,
           annlink1 = as.data.frame(list(SubRegion =  paste("../GGVwinArms/", ch, ".sub", g.cuts$Region,".html", sep="")))
           annObj$SubRegion1 = list(annotation = ann1, links=annlink1, images=NA)
           
-           if(locInfo$nSpot[idx] > 125){
+           if(locInfo$nSpot[idx] > break.num){
              ann2 = as.data.frame(list(Label =paste("SubRegion",g.cuts2$Region,sep=""),g.loc.start=g.cuts2$startloc, g.loc.center=g.cuts2$centerloc, g.loc.stop=g.cuts2$endloc))
              annlink2 = as.data.frame(list(SubRegion = paste("../GGVwinArms/", ch, ".sub", g.cuts2$Region,".html", sep="")))
 
@@ -1278,7 +1278,7 @@ makeGGV <- function(GGV,
             plt = paste(plt,paste("lines(x=c(.5,.5), y=c((",g.cuts$endloc[ic],"-50), (",g.cuts$endloc[ic],"+50)),lwd=5, col='white')",sep=""), sep=";")
           }
 
-          if(locInfo$nSpot[idx] > 125){
+          if(locInfo$nSpot[idx] > break.num){
          
             for(ic in 1:(dim(g.cuts2)[1]-1)){
               plt = paste(plt,paste("lines(x=c(1.5,1.5), y=c((",g.cuts2$endloc[ic],"-50), (",g.cuts2$endloc[ic],"+50)),lwd=5, col='white')",sep=""), sep=";")
@@ -1613,8 +1613,8 @@ makeGGV <- function(GGV,
           if(!is.na(GGV$values$plot.vec[1])) overrideInteractive = c(TRUE, FALSE, TRUE, TRUE)
   
           
-          if(locInfo$nSpot[idx] > 125)  g.sub = rbind(g.cuts, g.cuts2)
-          if(locInfo$nSpot[idx] <= 125)  g.sub = g.cuts
+          if(locInfo$nSpot[idx] > break.num)  g.sub = rbind(g.cuts, g.cuts2)
+          if(locInfo$nSpot[idx] <= break.num)  g.sub = g.cuts
           
           
           for(gs in 1:dim(g.sub)[1]){
@@ -1645,8 +1645,8 @@ makeGGV <- function(GGV,
             if(bacDX.sub[1] < locInfo$starting[idx]) bacDX.sub[1] = locInfo$starting[idx]
             if(bacDX.sub[length(bacDX.sub)] > locInfo$ending[idx]) bacDX.sub[length(bacDX.sub)] = locInfo$ending[idx]
                
-             if(locInfo$nSpot[idx] > 125) annotation = 1:(length(annObj)-2)
-            if(locInfo$nSpot[idx] <= 125) annotation = 1:(length(annObj)-1)
+             if(locInfo$nSpot[idx] > break.num) annotation = 1:(length(annObj)-2)
+            if(locInfo$nSpot[idx] <= break.num) annotation = 1:(length(annObj)-1)
             
             clrs = GGV$info$clrs
 

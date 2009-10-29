@@ -6,8 +6,9 @@
 mappingObjDF <- function(df,
                    spot.ID=NA,
                    chrom,
-                   chrom.levels,
                    locBy,
+                   base.chrm=NA,
+                   reg.exp=NA,           
                    loc=NA,
                    loc.start=NA,
                    loc.stop=NA,
@@ -102,31 +103,34 @@ mappingObjDF <- function(df,
   }
 
 
-  
-
-
-  
+    
   # get chr in correct format = could be 'chr1', 'chrom1'
-  # in case of having to convert 
-  tmp = chr[grep(chr,pattern="12")[1]]
-  tmp2 = strsplit(tmp, split="12")
-  if(tmp2[[1]][1] != ""){
-    newchr = gsub(chr, pattern=tmp2[[1]][1],replacement="")
-  }else{
-    newchr = chr 
+  # in case of having to convert
+
+  if(!is.na(base.chrm)){
+    
+    if(is.na(reg.exp)) reg.exp = rep(FALSE, length(base.chrm))
+    if(length(reg.exp)==1) reg.exp = rep(reg.exp[1], length(base.chrm))
+    
+    for(i in 1:length(base.chrm)){
+      chr = gsub(chr, pattern=base.chrm[i], replacement="",perl=reg.exp[i])
+    }
+    newchr=chr
+    
+    if(length(grep(newchr, pattern="X")>0)){
+      newchr[grep(newchr, pattern="X")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
+    }
+    if(length(grep(newchr, pattern="x")>0)){
+      newchr[grep(newchr, pattern="x")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
+    }
+    if(length(grep(newchr, pattern="Y")>0)){
+      newchr[grep(newchr, pattern="Y")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
+    }
+    if(length(grep(newchr, pattern="y")>0)){
+      newchr[grep(newchr, pattern="y")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
+    }
   }
-  if(length(grep(newchr, pattern="X")>0)){
-    newchr[grep(newchr, pattern="X")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
-  }
-  if(length(grep(newchr, pattern="x")>0)){
-    newchr[grep(newchr, pattern="x")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
-  }
-  if(length(grep(newchr, pattern="Y")>0)){
-    newchr[grep(newchr, pattern="Y")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
-  }
-  if(length(grep(newchr, pattern="y")>0)){
-    newchr[grep(newchr, pattern="y")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
-  }
+ 
 
   #
   # genomic location must be given
@@ -238,7 +242,7 @@ mappingObjDF <- function(df,
           mm = extraInc
         }
       }
-      if(class(additional) == "numeric"){
+      if(class(additional) == "numeric" | class(additional) == "integer"){
         extraInc = intersect(1:dim(df)[2], additional)
         mapping.info = cbind(mapping.info, df[,additional])
         mm = additional
@@ -295,7 +299,7 @@ mappingObjDF <- function(df,
           else warning("no valid column[s] given for links \n", immediate.=TRUE)
         }
       }
-      if(class(links) == "numeric"){
+      if(class(links) == "numeric" | class(additional) == "integer"){
         mm = links
         linksInc = intersect(1:dim(df)[2], links)
         if(length(linksInc) > 0) x.link = as.data.frame(df[,linksInc])
@@ -340,7 +344,7 @@ mappingObjDF <- function(df,
           mm = imagesInc
         }
       }
-      if(class(images) == "numeric"){
+      if(class(images) == "numeric" | class(additional) == "integer"){
         mm = images
         imagesInc = intersect(1:dim(df)[2], images)
         if(length(imagesInc) > 0)x.images = as.data.frame(df[,imagesInc])

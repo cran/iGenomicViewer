@@ -593,7 +593,7 @@ Individual plot sets can be sent via email, and the larger directory structure c
 \begin{verbatim}
 makeGGV(GGV,
         goodDX=NA,smplDX=NA,
-        smp.color=NA,
+        smp.color=NA,break.num = 125,
         tileNum = 2,buffer = 5,
         makeWinArms=TRUE, 
         tiledMat=NA,tiledMai.mat = NA,tiledMai.prc=FALSE,
@@ -632,9 +632,7 @@ smplDX=1:10
 smp.color= c(rep(c("red", "blue", "purple", "green","yellow"), each=4), rep("pink", 2))
 \end{verbatim} 
 
-The above will use all spots and the first ten samples.  
-
-
+The above will use all spots and the first ten samples. The other argument break.num refers to the number of spots to include in subheatmaps before creating a new region for interactivity. 
 
 
 
@@ -1560,7 +1558,7 @@ See appendix A.1 and B.1 for more information on annotation object structure and
 
 
 \section{Wrappers to Bioconductor Objects}
-There are three other functions to creating a mapping object not listed in section 4: mappingObjDF, mappingObjADF and mappingObjMarray. The mappingObjDF and mappingObjADF take in an object of the class data.frame and annotatedDataFrame to create a mapping object. The mappingObjMarray will take an object of the class marrayRaw, marrayNorm, or marrayInfo.  The inclusion of these functions allows for easy compatiblity with a variety of different formats. The rest of these functions' arguments behave as the generic mappingObj function in section 4.2. Please see this section for further details. 
+There are three other functions to creating a mapping object not listed in section 4: mappingObjDF, mappingObjADF and mappingObjMarray. The mappingObjDF and mappingObjADF take in an object of the class data.frame and annotatedDataFrame to create a mapping object. The mappingObjMarray will take an object of the class marrayRaw, marrayNorm, or marrayInfo.  The inclusion of these functions allows for easy compatiblity with a variety of different formats. The rest of these functions' arguments behave as the generic mappingObj function in section 4.2. Please see this section for further details. The additional argument base.chrm and reg.exp are used instead of chrom.levels. The argument base.chrm should be a character vector listing all prefix or suffix that should be removed from the chromosome in order to have a numeric. For example, "chrm10b", the base.chrm would be c("chrm","b"). The reg.exp argument indicates if the entry in base.chrm should be directly matched to the chromosomes or if perl regular expression matching should be used; an entry of FALSE means the argument will be matched exactly. 
 
 
 
