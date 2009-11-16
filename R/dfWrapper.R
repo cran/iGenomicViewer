@@ -129,6 +129,8 @@ mappingObjDF <- function(df,
     if(length(grep(newchr, pattern="y")>0)){
       newchr[grep(newchr, pattern="y")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
     }
+  }else{
+    newchr = chr
   }
  
 
@@ -160,7 +162,7 @@ mappingObjDF <- function(df,
     mapping.info$loc.center=as.numeric(locdata)
 
     # convert location if needed 
-    if(locBy == "within") mapping.info$g.loc.center = convertCloc(as.numeric(locdata), as.numeric(newchr))
+    if(locBy == "within") mapping.info$g.loc.center = convertCloc(as.numeric(locdata), newchr)
     if(locBy == "across") mapping.info$g.loc.center = as.numeric(locdata)
 
     mapping.info$g.loc.stop= mapping.info$g.loc.center

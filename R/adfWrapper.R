@@ -125,6 +125,8 @@ mappingObjADF <- function(adf,
     if(length(grep(newchr, pattern="y")>0)){
       newchr[grep(newchr, pattern="y")]= (max(suppressWarnings(as.numeric(newchr)), na.rm=TRUE)+1)
     }
+  }else{
+    newchr = chr
   }
 
 
@@ -156,7 +158,7 @@ mappingObjADF <- function(adf,
 
     mapping.info$loc.center = as.numeric(locdata)
     # convert location if needed 
-    if(locBy == "within") mapping.info$g.loc.center = convertCloc(as.numeric(locdata), as.numeric(newchr))
+    if(locBy == "within") mapping.info$g.loc.center = convertCloc(as.numeric(locdata), newchr)
     if(locBy == "across") mapping.info$g.loc.center = as.numeric(locdata)
     
     mapping.info$g.loc.stop= mapping.info$g.loc.center
@@ -204,9 +206,9 @@ mappingObjADF <- function(adf,
     
     # convert location if needed 
     if(locBy == "across"){
-      mapping.info$g.loc.start = convertGloc(as.numeric(startData), as.numeric(newchr))
+      mapping.info$g.loc.start = convertGloc(as.numeric(startData), newchr)
       mapping.info$g.loc.stop = convertGloc(as.numeric(endData), newchr)
-      mapping.info$g.loc.center = (as.numeric(convertGloc(startData, as.numeric(newchr)))+as.numeric(convertGloc(endData, as.numeric(newchr))))/2
+      mapping.info$g.loc.center = (as.numeric(convertGloc(startData, newchr))+as.numeric(convertGloc(endData, newchr)))/2
     }
     if(locBy == "within"){
       mapping.info$g.loc.start = as.numeric(startData)

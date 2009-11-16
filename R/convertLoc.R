@@ -22,17 +22,17 @@ convertCloc <- function(x, chr, row=TRUE, bandobj=NA){
   
   if(is.null(dim(x))){
     if(length(chr)==1) chr = rep(chr, length(x))
-    x = x + band.info$offset[chr]
+    x = x + band.info$offset[as.numeric(chr)]
   }else{
     
     if(row){
       if(length(chr)==1) chr = rep(chr, dim(x)[2])
-      x[,1:dim(x)[2]] = x[,1:dim(x)[2]] + band.info$offset[chr]
+      x[,1:dim(x)[2]] = x[,1:dim(x)[2]] + band.info$offset[as.numeric(chr)]
     }
     if(!row){
       if(length(chr)==1) chr = rep(chr, dim(x)[1])
       x = t(x)
-      x[,1:dim(x)[2]] = x[,1:dim(x)[2]] + band.info$offset[chr]
+      x[,1:dim(x)[2]] = x[,1:dim(x)[2]] + band.info$offset[as.numeric(chr)]
       x=t(x)
     }    
   }
@@ -57,17 +57,17 @@ convertGloc <- function(x, chr, row=TRUE, bandobj=NA){
   
   if(is.null(dim(x))){
     if(length(chr)==1) chr = rep(chr, length(x))
-    x = x - band.info$offset[chr]
+    x = x - band.info$offset[as.numeric(chr)]
   }else{
     
     if(row){
       if(length(chr)==1) chr = rep(chr, dim(x)[2])
-      x[,1:dim(x)[2]] = x[,1:dim(x)[2]] - band.info$offset[chr]
+      x[,1:dim(x)[2]] = x[,1:dim(x)[2]] - band.info$offset[as.numeric(chr)]
     }
     if(!row){
       if(length(chr)==1) chr = rep(chr, dim(x)[1])
       x = t(x)
-      x[,1:dim(x)[2]] = x[,1:dim(x)[2]] - band.info$offset[chr]
+      x[,1:dim(x)[2]] = x[,1:dim(x)[2]] - band.info$offset[as.numeric(chr)]
       x=t(x)
     }    
   }

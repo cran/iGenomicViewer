@@ -1235,7 +1235,7 @@ The above code will generate a single static tiled image heatmap.
 
 This section will show a few differetn examples, including some not using default objects to show versatility and compatiblity with other R objects. 
 
-\subsection{1}
+\subsection{1: aCGH}
 
 The first example uses the data set provided in the R library aCGH and  the default annotation object from the iGenomicViewer library. This example also shows how to create a mapping object from a data.frame.
 
@@ -1250,7 +1250,7 @@ data(annObj)
 
 # create the mapping object
 mapObj = mappingObjDF(df=colorectal$clones.info, 
-          spot.ID=1, chrom=3, chrom.levels=1:23,
+          spot.ID=1, chrom=3,
           locBy="within", loc=4)
 
 # initialize the GGVobj
@@ -1264,9 +1264,81 @@ makeGGV(GGV=GGV)
 
 \end{verbatim}
 
+Figure 10 shows the generated iGenomicViewer plot for the data in the aCGH package. 
+
+\begin{center}
+\begin{figure}
+\includegraphics{figure02}
+\caption{example interactive plot for aCGH data}
+\end{figure}
+\end{center}
 
 
-\subsection{2}
+
+
+\subsection{2: SNPchip}
+
+The second example uses the data set provided in the R library SNPchip and  the default annotation object from the iGenomicViewer library. This example also shows how to create a mapping object from a data.frame and plays with the plot layout margins. 
+
+
+\begin{verbatim}
+# load libraries
+library(iGenomicViewer)  
+library(SNPchip)
+
+# load data  
+data(hapmap)
+data(sample.snpset)
+data(annObj)
+
+# create the mapping object
+mapd = cbind(sample.snpset@featureData@data, 
+             row.names(sample.snpset@featureData@data))
+names(mapd)[dim(mapd)[2]] = "ID"
+mapObj = mappingObjDF(df =mapd, spot.ID=9, chrom=2,
+            locBy="within", loc=3, additional=c(4:6), 
+            names.additional=c("strand", "alleleA", "alleleB"))
+
+
+# sets values matrix to color code heatmap 
+mm = match(row.names(hapmap$calls),row.names(sample.snpset@featureData@data))
+bddx = which(is.na(mm))
+vls = hapmap$copyNumber[-(bddx),]
+
+# plays with layout margins
+mat = matrix(c(rep(c(rep(1,7), rep(3,1)), 8),
+               rep(c(rep(2,7), rep(0,1)), 1)),
+               byrow=TRUE, ncol=8)
+mai.mat = matrix(c(
+  0.2,  1.0, 1.0, 0.05,
+  0.5,  1.0, 0.3, 0.05,
+  0.2, 0.05, 1.0, 0.2)
+  , byrow=TRUE, ncol=4)
+
+
+# initialize the GGVobj
+GGV = initGGV(vls=vls, mapObj=mapObj, annObj=annObj,
+         xy.labels=list(copynumber=round(hapmap$copyNumber[-(bddx),],3),
+                        calls=round(hapmap$calls[-(bddx),],3),
+                        confidenceCalls=round(hapmap$callsConfidence[-(bddx),],3)),
+                        lims=c(0,5), chrArms="6q", mat=mat, mai.mat=mai.mat) 
+
+# make plots 
+makeGGV(GGV=GGV)
+
+\end{verbatim}
+
+Figure 11 shows the generated iGenomicViewer plot for the data in the SNPchip package. 
+
+\begin{center}
+\begin{figure}
+\includegraphics{figure03}
+\caption{example interactive plot for SNP data}
+\end{figure}
+\end{center}
+
+
+\subsection{3: package example of plotting GGVobj}
 
 This example will recap the code in the vignette for a GGVobj. 
 
@@ -1322,7 +1394,7 @@ makeGGV(GGV=GGV, goodDX=NA, smplDX=1:10,
 \end{verbatim}              
          
 
-\subsection{3}              
+\subsection{4: package example of Tiled Plot}              
               
 This example will recap the code in the vignette for a Tiled Plot. 
 
