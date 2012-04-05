@@ -195,7 +195,11 @@ makeGGV <- function(GGV,
       lwrDX = idx.spots[1]
       uprDX = idx.spots[length(idx.spots)]
       sectiondiv = GGV$values$mapObj$mapping.info$g.loc.start[lwrDX]
-      for(i in lwrDX:(uprDX-1)){
+      bndDX = lwrDX:uprDX
+      bndDX = intersect(bndDX,goodDX)
+           
+      #for(i in lwrDX:(uprDX-1)){
+      for(i in bndDX[-length(bndDX)]){
         sectiondiv = c(sectiondiv, mean(c(GGV$values$mapObj$mapping.info$g.loc.stop[i], GGV$values$mapObj$mapping.info$g.loc.start[i+1])))
       }
       sectiondiv = c(sectiondiv, GGV$values$mapObj$mapping.info$g.loc.stop[uprDX])

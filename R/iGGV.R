@@ -64,7 +64,10 @@ iGGV <- function(vls,
                   header="v3",
                   window.size = "800x1100",
                   image.size= "800x1100",
-
+                  ps.paper="letter",
+                  ps.width=8,
+                  ps.height=11,
+  
                   cleanDir=TRUE,
                   ... # extra arguments to makeImap not in above 
                   ){
@@ -254,7 +257,11 @@ iGGV <- function(vls,
               lwrDX = idx.spots[1]
               uprDX = idx.spots[length(idx.spots)]
               sectiondiv = mapObj$mapping.info$g.loc.start[lwrDX]
-              for(i in lwrDX:(uprDX-1)){
+              bndDX = lwrDX:uprDX
+              bndDX = intersect(bndDX,goodDX)
+              
+              #for(i in lwrDX:(uprDX-1)){
+              for(i in bndDX[-length(bndDX)]){
                 sectiondiv = c(sectiondiv, mean(c(mapObj$mapping.info$g.loc.stop[i], mapObj$mapping.info$g.loc.start[i+1])))
               }
               sectiondiv = c(sectiondiv, mapObj$mapping.info$g.loc.stop[uprDX])
@@ -568,8 +575,8 @@ if(!is.na(plot4))  plot.calls = list(plot1=plot1, plot2=plot2, plot3=plot3, plot
     environment(writeToHTML2) <- environment()
     
   
-if(is.na(plot4))  Splot = initSplot(mat=mat, plot.calls=plot.calls, Iflag=c(TRUE,FALSE,TRUE), figTypes=c("image", "image", "image" ), mai.mat=mai.mat,mai.prc=mai.prc, image.size=image.size, plot.extras=plot.extras) 
-if(!is.na(plot4))  Splot = initSplot(mat=mat, plot.calls=plot.calls, Iflag=c(TRUE,FALSE,TRUE, TRUE), figTypes=c("image", "image", "image","image"), mai.mat=mai.mat,mai.prc=mai.prc, image.size=image.size, plot.extras=plot.extras) 
+if(is.na(plot4))  Splot = initSplot(mat=mat, plot.calls=plot.calls, Iflag=c(TRUE,FALSE,TRUE), figTypes=c("image", "image", "image" ), mai.mat=mai.mat,mai.prc=mai.prc, image.size=image.size, plot.extras=plot.extras, source.plot=overwriteSourcePlot, ps.paper=ps.paper, ps.width=ps.width, ps.height=ps.height) 
+if(!is.na(plot4))  Splot = initSplot(mat=mat, plot.calls=plot.calls, Iflag=c(TRUE,FALSE,TRUE, TRUE), figTypes=c("image", "image", "image","image"), mai.mat=mai.mat,mai.prc=mai.prc, image.size=image.size, plot.extras=plot.extras, source.plot=overwriteSourcePlot, ps.paper=ps.paper, ps.width=ps.width, ps.height=ps.height)
 
   
   #######################

@@ -34,8 +34,8 @@ initTile <- function(Z,
   bacDX = intersect(bacDX, goodDX)
   
   # check Z dimensions
-  if(dim(Z)[1] > length(bacDX)) Z = Z[bacDX,]
-  if(dim(Z)[2] >= length(smplDX)) Z = Z[,smplDX]
+  if(dim(Z)[1] > length(bacDX)) Z = as.matrix(Z[bacDX,], nrows=length(bacDX))
+  if(dim(Z)[2] >= length(smplDX)) Z = as.matrix(Z[,smplDX],nrows=length(bacDX))
   if((dim(Z)[1] != length(bacDX)) & (dim(Z)[2] != length(smplDX))) {
     stop("Error: dimensions of Z not correct \n       dimension of Z must be equal to length of bacDX by length of smplDX \n       or a larger matrix to be subset based on bacDX and smplDX\n") 
   }

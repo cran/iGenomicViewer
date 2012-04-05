@@ -52,6 +52,9 @@ iGGV(vls,
       header="v3",
       window.size = "800x1100",
       image.size= "800x1100",
+      ps.paper="letter",
+      ps.width=8,
+      ps.height=11,
       cleanDir=TRUE,
       ...)
 }
@@ -157,7 +160,10 @@ iGGV(vls,
   \item{window.size}{size of the html window. see \code{makeSplot} for more details}
   \item{image.size}{character indicating resize value of
     image,'width'x'height' see \code{initSplot} for more details}
-  \item{cleanDir}{logical indicating if intermediate files created for
+  \item{ps.paper}{character indicating paper for postscript function}
+  \item{ps.width}{width argument for postscript function}
+  \item{ps.height}{hieght argument for postscript function}
+   \item{cleanDir}{logical indicating if intermediate files created for
     mapping purposes should be deleted}
   \item{...}{extra arguments to makeImap function}
 }
